@@ -1,0 +1,22 @@
+.main{background-color: black;}
+.site{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  grid-template-areas:"header header"
+                      "title sidebar"
+                      "main sidebar"
+                      "footer footer";
+  grid-gap:5px; margin:10px; padding:5px; border:solid 1px #000;
+}
+.site > *{padding:15px; color:#fff; font-size:20px;}
+.mastheader{background:#34495E; grid-area:header; }
+.page-title{background:#000000; grid-area:title;}
+.main-content{background:#000; grid-area:main; min-height:500px;}
+.sidebar{background:#2874A6; grid-area:sidebar;}
+.footer{background:#34495E; grid-area:footer;}
+.image {position: relative; width: 100%;}
+.column {float: left; width: 33%;}
+.rightvid  { float: right; margin: 7px 0 7px 7px; width: 50%;}
+.logo  { float: left;; margin: 7px 20px 20px 20px; width:70px;}
+.menupic {width:300px;}
+.count {width:40px;}
