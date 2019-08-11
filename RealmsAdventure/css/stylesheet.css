@@ -1,0 +1,604 @@
+
+
+/* google fonts */
+
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+@import url('https://fonts.googleapis.com/css?family=Merienda+One');
+@-webkit-keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@-moz-keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+body {
+	-webkit-animation-delay: 0.5s;
+	-moz-animation-delay: 0.5s;
+	animation-delay: 0.5s;
+	opacity: 0;
+	-webkit-animation: fadeIn ease-in 1;
+	-moz-animation: fadeIn ease-in 1;
+	animation: fadeIn ease-in 1;
+	-webkit-animation-fill-mode: forwards;
+	-moz-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	-webkit-animation-duration: 2s;
+	-moz-animation-duration: 2s;
+	animation-duration: 2s;
+}
+
+h1 {
+	color: green;
+	font-family: 'Merienda One', cursive;
+	font-size: 50px;
+	text-align: center;
+	padding: 1px;
+	border: 1px solid #021a40;
+	background-color: #ff0;
+}
+
+h2 {
+	text-transform: uppercase;
+	text-align: center;
+}
+
+p {
+	color: white;
+	font-family: 'Press Start 2P', cursive;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+a {
+	color: yellow;
+}
+
+.introimg {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	padding: 1px;
+	border: 1px solid #021a40;
+	background-color: #ff0;
+}
+
+.winimg {
+	background-color: #000;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	padding: 1px;
+	border: 1px solid #021a40;
+}
+
+#choicetext {
+	margin: 0 auto;
+	width: 400px;
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+.author {
+	bottom: 10px;
+	font-size: 1rem;
+	position: absolute;
+	right: 20px;
+	color: white;
+	font-family: 'Press Start 2P', cursive, sans-serif;
+	font-weight: normal;
+}
+
+/*--Levar, buttons styling and transitions--*/
+
+#choices {
+	margin: auto;
+	text-align: center;
+}
+
+.buttons {
+	padding: 10px;
+	margin: 20px;
+	border: 3px outset white;
+	border-radius: 10px;
+	background-color: red;
+	text-decoration: none;
+}
+
+.buttons:hover {
+	background-color: blue;
+	transition-property: background-color;
+	transition-duration: 0.25s;
+}
+
+
+/*^^Levar, buttons styling and transitions^^*/
+
+.blinking {
+	animation: blinkingText 2s infinite;
+}
+
+@keyframes blinkingText {
+	0% {
+		color: crimson;
+	}
+	49% {
+		color: pink;
+	}
+	50% {
+		color: crimson;
+	}
+	99% {
+		color: pink;
+	}
+	100% {
+		color: crimson;
+	}
+}
+
+
+/*Game Over */
+
+.container {
+	margin: auto;
+	width: 80%;
+	background-color: transparent;
+}
+
+.path {
+	position: relative;
+	overflow: hidden;
+	width: 300px;
+	height: 80px;
+	margin: 10px;
+}
+
+.shape1 {
+	position: absolute;
+	left: 0;
+	background-color: red;
+	width: 80px;
+	height: 80px;
+	display: block;
+	top: 0;
+	font-weight: bold;
+	font-size: 25px;
+	text-align: center;
+	padding: 10px;
+	transition: all 10s ease-in-out;
+	animation: ani 10s infinite;
+}
+
+@keyframes ani {
+	0% {
+		left: 0;
+	}
+	50% {
+		left: 200px;
+	}
+	100% {
+		left: 0;
+	}
+}
+
+
+/*Win */
+
+.container {
+	margin: auto;
+	width: 80%;
+	background-color: transparent;
+}
+
+.path {
+	position: relative;
+	overflow: hidden;
+	width: 300px;
+	height: 80px;
+	margin: 10px;
+}
+
+.shape {
+	position: absolute;
+	left: 0;
+	background-color: green;
+	width: 80px;
+	height: 80px;
+	display: block;
+	top: 0;
+	font-weight: bold;
+	font-size: 25px;
+	text-align: center;
+	padding: 10px;
+	transition: all 10s ease-in-out;
+	animation: ani 10s infinite;
+}
+
+@keyframes ani {
+	0% {
+		left: 0;
+	}
+	50% {
+		left: 200px;
+	}
+	100% {
+		left: 0;
+	}
+}
+
+
+/*backgrounds */
+
+.end {
+	background-color: black;
+}
+
+.home {
+	background-color: black;
+	background-image: url(../img/mainbackground.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.town {
+	background-color: black;
+	background-image: url(../img/towncastle.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.inn {
+	background-color: black;
+	background-image: url(../img/inn3.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.inbar {
+	background-color: black;
+	background-image: url(../img/inn3.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.forest {
+	background-color: black;
+	background-image: url(../img/forest.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.forestenter {
+	background-color: black;
+	background-image: url(../img/forest.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.forest2 {
+	background-color: black;
+	background-image: url(../img/forest.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.forestleft {
+	background-color: black;
+	background-image: url(../img/swamp2.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.swampenter {
+	background-color: black;
+	background-image: url(../img/swamp2.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.witchfight {
+	background-color: black;
+	background-image: url(../img/last-witch-hunter.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.forestright {
+	background-color: black;
+	background-image: url(../img/forest.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.dragon1fight {
+	background-color: black;
+	background-image: url(../img/dragon-dead.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.dragonlost {
+	background-color: black;
+	background-image: url(../img/dragonlost.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.flee {
+	background-color: black;
+	background-image: url(../img/bigthumbnail.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.inssit {
+	background-color: black;
+	background-image: url(../img/inn3.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.innfight {
+	background-color: black;
+	background-image: url(../img/inn3.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.innfightpunch {
+	background-color: black;
+	background-image: url(../img/wonyellow.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.forest3 {
+	background-color: black;
+	background-image: url(../img/forest.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.forest3left {
+	background-color: black;
+	background-image: url(../img/swamp2.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.swampenter2 {
+	background-color: black;
+	background-image: url(../img/swamp2.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.dragonfight3 {
+	background-color: black;
+	background-image: url(../img/bigthumbnail.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.dragonfight3 {
+	background-color: black;
+	background-image: url(../img/bigthumbnail.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.dragon3flee {
+	background-color: black;
+	background-image: url(../img/bigthumbnail.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.forest3right {
+	background-color: black;
+	background-image: url(../img/forest.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.dragon2fight {
+	background-color: black;
+	background-image: url(../img/bigthumbnail.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.dragon2-flee {
+	background-color: black;
+	background-image: url(../img/bigthumbnail.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.sewer {
+	background-color: black;
+	background-image: url(../img/sewer2.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.sewerleft {
+	background-color: black;
+	background-image: url(../img/sewer2.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.wererat-fight {
+	background-color: black;
+	background-image: url(../img/bigthumbnail.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.wererat-flee {
+	background-color: black;
+	background-image: url(../img/sewer2.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.sewerright2 {
+	background-color: black;
+	background-image: url(../img/sewer2.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.beholderfight {
+	background-color: black;
+	background-image: url(../img/bigthumbnail.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.beholderflee {
+	background-color: black;
+	background-image: url(../img/bigthumbnail.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.innignore {
+	background-color: black;
+	background-image: url(../img/innignore.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.innfightkick {
+	background-color: black;
+	background-image: url(../img/bigthumbnail.jpg);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}

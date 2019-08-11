@@ -1,0 +1,1921 @@
+
+
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+@-webkit-keyframes coin {
+	0% {
+		box-shadow: none;
+		padding: 0;
+		pointer-events: all;
+		top: -30px;
+	}
+	95% {
+		box-shadow: none;
+		background-color: white;
+		border: solid 1px black;
+		border-radius: 100%;
+		padding: 0;
+		pointer-events: all;
+	}
+	100% {
+		box-shadow: 2px #f2f2f2;
+		background-color: #ffffcc;
+		border-radius: 100%;
+		border-color: rgba(0, 0, 0, 0.1);
+		padding: 5px;
+		pointer-events: none;
+		top: calc(100vh - 80px);
+	}
+}
+
+@keyframes coin {
+	0% {
+		box-shadow: none;
+		padding: 0;
+		pointer-events: all;
+		top: -30px;
+	}
+	95% {
+		box-shadow: none;
+		background-color: white;
+		border: solid 1px black;
+		border-radius: 100%;
+		padding: 0;
+		pointer-events: all;
+	}
+	100% {
+		background-color: #ffffcc;
+		border-radius: 100%;
+		border-color: rgba(0, 0, 0, 0.1);
+		padding: 5px;
+		pointer-events: none;
+		top: calc(100vh - 80px);
+	}
+}
+
+@-webkit-keyframes gameover {
+	to {
+		-webkit-perspective: 1000;
+		perspective: 1000;
+		-webkit-transform: rotateY(0deg);
+		transform: rotateY(0deg);
+		transition: all 600ms;
+	}
+}
+
+@keyframes gameover {
+	to {
+		-webkit-transform: perspective(1000px) rotateY(0deg);
+		transform: perspective(1000px) rotateY(0deg);
+		transition: all 600ms;
+	}
+}
+
+* {
+	box-sizing: border-box;
+}
+
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100vh;
+	width: 100vw;
+	background-color: white;
+	display: flex;
+	overflow: hidden;
+}
+
+body {
+	font-family: 'Press Start 2P', cursive, sans-serif;
+}
+
+.game-check {
+	height: 0;
+	width: 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: transparent;
+	border: 0;
+	left: 0;
+	outline: 0;
+	position: absolute;
+	top: 0;
+}
+
+.game-check:checked {
+	counter-increment: game;
+}
+
+.wrapper {
+	height: 100vh;
+	width: 100vw;
+	align-items: center;
+	display: inherit;
+	justify-content: center;
+}
+
+.intro,
+.gameover {
+	background-color: #000;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	left: 0;
+	padding: 10px 20px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transform: perspective(1000px) rotateY(0deg);
+	transform: perspective(1000px) rotateY(0deg);
+	transition: all 600ms;
+	z-index: 20;
+}
+
+.intro {
+	color: #008000;
+}
+
+.intro h1,
+.intro h2 {
+	color: white;
+	display: flex;
+	font-family: 'Press Start 2P', cursive, sans-serif;
+	justify-content: center;
+	margin-bottom: 10px;
+}
+
+.intro span.dragon{
+  background-image: url("../img/dragon-head.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  font-size: 5em;
+}
+.intro span.dwarf{
+  background-image: url("../img/dwarf-face.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  font-size: 5em;
+}
+.intro span.monster{
+  background-image: url("../img/gooey-daemon.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  font-size: 5em;
+}
+.intro span.witch{
+  background-image: url("../img/witch-face.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  font-size: 5em;
+}
+
+.intro h1 {
+	font-size: 3rem;
+}
+
+.intro h2 {
+	font-size: 2rem;
+}
+
+.intro .instructions {
+	display: flex;
+	flex-direction: column;
+	margin: 5vh auto 0;
+}
+
+.intro .instructions p {
+	margin-bottom: 10px;
+}
+
+.intro .instructions p:last-child {
+	margin-bottom: 0;
+}
+
+.slider-input {
+	display: none;
+}
+
+.slider-input:checked~.intro {
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transform: rotateY(90deg);
+	transform: rotateY(90deg);
+	transition: all 600ms;
+}
+
+.slider-input:checked~.gameover {
+	-webkit-animation-play-state: running;
+	animation-play-state: running;
+}
+
+.slider-input:checked+.state {
+	display: none;
+}
+
+.slider-input:checked+.state .slider {
+	background-color: #2196F3;
+}
+
+.slider-input:checked+.state .slider:before {
+	-webkit-transform: translateX(26px);
+	transform: translateX(26px);
+}
+
+.slider-input:checked~.coin {
+	-webkit-animation-play-state: running;
+	animation-play-state: running;
+}
+
+.state {
+	bottom: 200px;
+	display: inline-block;
+	position: absolute;
+	right: 500px;
+	height: 34px;
+	width: 60px;
+	z-index: 30;
+}
+
+.state .slider {
+	background-color: #000;
+	bottom: 0;
+	cursor: pointer;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	transition: .4s;
+}
+
+.state .slider:before {
+	background-image: url("../img/coinstart.png");
+	background-size: contain;
+	bottom: 4px;
+	content: "";
+	height: 60px;
+	left: 4px;
+	position: absolute;
+	transition: .4s;
+	width: 60px;
+}
+
+.state .slider.round {
+	border-radius: 34px;
+}
+
+.state .slider.round:before {
+	border-radius: 50%;
+}
+
+.frame {
+	height: 100%;
+	width: 100%;
+	background-color: #000;
+	counter-reset: none;
+	height: 100vh;
+	overflow: hidden;
+	-webkit-perspective: 1000px;
+	perspective: 1000px;
+	position: relative;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	width: 100vw;
+}
+
+.chicken {
+	display: none;
+	position: relative;
+}
+
+.chicken .head,
+.chicken .body {
+	background-color: white;
+	border: solid 1px black;
+}
+
+.coin {
+	height: 30px;
+	width: 30px;
+	background-color: yellow;
+	background-image: url("../img/coinpic.png");
+	background-size: contain;
+	border: solid 1px black;
+	border-radius: 100%;
+	box-shadow: none;
+	padding: 0;
+	position: absolute;
+	top: -30px;
+	z-index: 11;
+}
+
+.coin:hover {
+	cursor: url("../img/manybag.png") 15 25, auto;
+}
+
+.coin__1 {
+	-webkit-animation: coin 30s linear 4.3485653839s forwards;
+	animation: coin 30s linear 4.3485653839s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 34.0995376082%;
+}
+
+.coin_1:checked~.coin__1 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__2 {
+	-webkit-animation: coin 20s linear 4.6021143742s forwards;
+	animation: coin 20s linear 4.6021143742s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 21.416384543%;
+}
+
+.coin_2:checked~.coin__2 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__3 {
+	-webkit-animation: coin 10s linear 2.8292324538s forwards;
+	animation: coin 10s linear 2.8292324538s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 29.1239068645%;
+}
+
+.coin_3:checked~.coin__3 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__4 {
+	-webkit-animation: coin 10s linear 2.4252800357s forwards;
+	animation: coin 10s linear 2.4252800357s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 6.6213167417%;
+}
+
+.coin_4:checked~.coin__4 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__5 {
+	-webkit-animation: coin 30s linear 2.5810175676s forwards;
+	animation: coin 30s linear 2.5810175676s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 55.5123114708%;
+}
+
+.coin_5:checked~.coin__5 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__6 {
+	-webkit-animation: coin 10s linear 0.0518825693s forwards;
+	animation: coin 10s linear 0.0518825693s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 71.3207834374%;
+}
+
+.coin_6:checked~.coin__6 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__7 {
+	-webkit-animation: coin 20s linear 4.0765430623s forwards;
+	animation: coin 20s linear 4.0765430623s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 27.1393024392%;
+}
+
+.coin_7:checked~.coin__7 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__8 {
+	-webkit-animation: coin 10s linear 4.0845669226s forwards;
+	animation: coin 10s linear 4.0845669226s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 40.6270126134%;
+}
+
+.coin_8:checked~.coin__8 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__9 {
+	-webkit-animation: coin 10s linear 2.1374014973s forwards;
+	animation: coin 10s linear 2.1374014973s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 46.0066533888%;
+}
+
+.coin_9:checked~.coin__9 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__10 {
+	-webkit-animation: coin 30s linear 1.4492360155s forwards;
+	animation: coin 30s linear 1.4492360155s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 49.1100860286%;
+}
+
+.coin_10:checked~.coin__10 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__11 {
+	-webkit-animation: coin 20s linear 1.8155256794s forwards;
+	animation: coin 20s linear 1.8155256794s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 34.8138300441%;
+}
+
+.coin_11:checked~.coin__11 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__12 {
+	-webkit-animation: coin 30s linear 3.2958247224s forwards;
+	animation: coin 30s linear 3.2958247224s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 37.957211302%;
+}
+
+.coin_12:checked~.coin__12 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__13 {
+	-webkit-animation: coin 30s linear 2.3256853127s forwards;
+	animation: coin 30s linear 2.3256853127s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 9.405628428%;
+}
+
+.coin_13:checked~.coin__13 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__14 {
+	-webkit-animation: coin 10s linear 0.9604494418s forwards;
+	animation: coin 10s linear 0.9604494418s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 68.0317161427%;
+}
+
+.coin_14:checked~.coin__14 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__15 {
+	-webkit-animation: coin 10s linear 3.1139166733s forwards;
+	animation: coin 10s linear 3.1139166733s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 17.7145743066%;
+}
+
+.coin_15:checked~.coin__15 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__16 {
+	-webkit-animation: coin 30s linear 4.1393438619s forwards;
+	animation: coin 30s linear 4.1393438619s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 19.4451478428%;
+}
+
+.coin_16:checked~.coin__16 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__17 {
+	-webkit-animation: coin 10s linear 1.8880389197s forwards;
+	animation: coin 10s linear 1.8880389197s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 7.5391313307%;
+}
+
+.coin_17:checked~.coin__17 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__18 {
+	-webkit-animation: coin 30s linear 0.6597182063s forwards;
+	animation: coin 30s linear 0.6597182063s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 4.2645334334%;
+}
+
+.coin_18:checked~.coin__18 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__19 {
+	-webkit-animation: coin 10s linear 4.1950783147s forwards;
+	animation: coin 10s linear 4.1950783147s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 52.8441406782%;
+}
+
+.coin_19:checked~.coin__19 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__20 {
+	-webkit-animation: coin 10s linear 1.0758424561s forwards;
+	animation: coin 10s linear 1.0758424561s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 28.3049022871%;
+}
+
+.coin_20:checked~.coin__20 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__21 {
+	-webkit-animation: coin 30s linear 3.1888479723s forwards;
+	animation: coin 30s linear 3.1888479723s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 49.0936213503%;
+}
+
+.coin_21:checked~.coin__21 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__22 {
+	-webkit-animation: coin 30s linear 2.5678743674s forwards;
+	animation: coin 30s linear 2.5678743674s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 45.6347511436%;
+}
+
+.coin_22:checked~.coin__22 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__23 {
+	-webkit-animation: coin 30s linear 2.7659506257s forwards;
+	animation: coin 30s linear 2.7659506257s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 11.8204575867%;
+}
+
+.coin_23:checked~.coin__23 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__24 {
+	-webkit-animation: coin 20s linear 4.8813096935s forwards;
+	animation: coin 20s linear 4.8813096935s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 8.3631622567%;
+}
+
+.coin_24:checked~.coin__24 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__25 {
+	-webkit-animation: coin 20s linear 3.0559592366s forwards;
+	animation: coin 20s linear 3.0559592366s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 53.808732535%;
+}
+
+.coin_25:checked~.coin__25 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__26 {
+	-webkit-animation: coin 30s linear 0.1810143108s forwards;
+	animation: coin 30s linear 0.1810143108s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 73.82569846%;
+}
+
+.coin_26:checked~.coin__26 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__27 {
+	-webkit-animation: coin 10s linear 4.1705904162s forwards;
+	animation: coin 10s linear 4.1705904162s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 32.910032073%;
+}
+
+.coin_27:checked~.coin__27 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__28 {
+	-webkit-animation: coin 20s linear 4.464713815s forwards;
+	animation: coin 20s linear 4.464713815s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 74.8248876448%;
+}
+
+.coin_28:checked~.coin__28 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__29 {
+	-webkit-animation: coin 20s linear 1.6139862827s forwards;
+	animation: coin 20s linear 1.6139862827s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 39.7999665323%;
+}
+
+.coin_29:checked~.coin__29 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__30 {
+	-webkit-animation: coin 20s linear 4.6098347444s forwards;
+	animation: coin 20s linear 4.6098347444s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 83.9551797812%;
+}
+
+.coin_30:checked~.coin__30 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__31 {
+	-webkit-animation: coin 30s linear 3.670500426s forwards;
+	animation: coin 30s linear 3.670500426s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 3.2351222935%;
+}
+
+.coin_31:checked~.coin__31 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__32 {
+	-webkit-animation: coin 10s linear 2.5752595305s forwards;
+	animation: coin 10s linear 2.5752595305s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 29.0464318076%;
+}
+
+.coin_32:checked~.coin__32 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__33 {
+	-webkit-animation: coin 10s linear 1.8595714691s forwards;
+	animation: coin 10s linear 1.8595714691s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 78.4624921695%;
+}
+
+.coin_33:checked~.coin__33 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__34 {
+	-webkit-animation: coin 30s linear 1.2444555694s forwards;
+	animation: coin 30s linear 1.2444555694s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 26.8460098263%;
+}
+
+.coin_34:checked~.coin__34 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__35 {
+	-webkit-animation: coin 20s linear 2.8365868151s forwards;
+	animation: coin 20s linear 2.8365868151s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 27.3707733921%;
+}
+
+.coin_35:checked~.coin__35 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__36 {
+	-webkit-animation: coin 30s linear 0.2509925844s forwards;
+	animation: coin 30s linear 0.2509925844s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 41.790031141%;
+}
+
+.coin_36:checked~.coin__36 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__37 {
+	-webkit-animation: coin 30s linear 4.9684735311s forwards;
+	animation: coin 30s linear 4.9684735311s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 89.2564394294%;
+}
+
+.coin_37:checked~.coin__37 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__38 {
+	-webkit-animation: coin 10s linear 1.574320169s forwards;
+	animation: coin 10s linear 1.574320169s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 5.0538311605%;
+}
+
+.coin_38:checked~.coin__38 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__39 {
+	-webkit-animation: coin 10s linear 3.0716192591s forwards;
+	animation: coin 10s linear 3.0716192591s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 91.6127785962%;
+}
+
+.coin_39:checked~.coin__39 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__40 {
+	-webkit-animation: coin 30s linear 1.6881436103s forwards;
+	animation: coin 30s linear 1.6881436103s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 65.782167571%;
+}
+
+.coin_40:checked~.coin__40 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__41 {
+	-webkit-animation: coin 10s linear 0.0339275212s forwards;
+	animation: coin 10s linear 0.0339275212s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 20.5253930183%;
+}
+
+.coin_41:checked~.coin__41 {
+	opacity: 0;
+	/* -webkit-transform: translate(-50%, -50%) scale(0.01);
+          transform: translate(-50%, -50%) scale(0.01); */
+	transition: all 0.1s linear;
+}
+
+.coin__42 {
+	-webkit-animation: coin 30s linear 2.2000095567s forwards;
+	animation: coin 30s linear 2.2000095567s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 84.6530721611%;
+}
+
+.coin_42:checked~.coin__42 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__43 {
+	-webkit-animation: coin 30s linear 3.6414086418s forwards;
+	animation: coin 30s linear 3.6414086418s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 93.3355914221%;
+}
+
+.coin_43:checked~.coin__43 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__44 {
+	-webkit-animation: coin 10s linear 4.2448017619s forwards;
+	animation: coin 10s linear 4.2448017619s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 48.2137436%;
+}
+
+.coin_44:checked~.coin__44 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__45 {
+	-webkit-animation: coin 10s linear 3.4507818607s forwards;
+	animation: coin 10s linear 3.4507818607s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 16.0648730091%;
+}
+
+.coin_45:checked~.coin__45 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__46 {
+	-webkit-animation: coin 10s linear 2.3508019385s forwards;
+	animation: coin 10s linear 2.3508019385s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 0.6390037048%;
+}
+
+.coin_46:checked~.coin__46 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__47 {
+	-webkit-animation: coin 20s linear 2.6248867958s forwards;
+	animation: coin 20s linear 2.6248867958s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 63.8629865782%;
+}
+
+.coin_47:checked~.coin__47 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__48 {
+	-webkit-animation: coin 20s linear 3.7338634579s forwards;
+	animation: coin 20s linear 3.7338634579s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 85.1891004292%;
+}
+
+.coin_48:checked~.coin__48 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__49 {
+	-webkit-animation: coin 10s linear 3.8720061234s forwards;
+	animation: coin 10s linear 3.8720061234s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 33.0793096278%;
+}
+
+.coin_49:checked~.coin__49 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__50 {
+	-webkit-animation: coin 20s linear 0.1329001736s forwards;
+	animation: coin 20s linear 0.1329001736s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 78.6034233538%;
+}
+
+.coin_50:checked~.coin__50 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__51 {
+	-webkit-animation: coin 20s linear 4.0782855269s forwards;
+	animation: coin 20s linear 4.0782855269s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 36.885841845%;
+}
+
+.coin_51:checked~.coin__51 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__52 {
+	-webkit-animation: coin 10s linear 0.6970234724s forwards;
+	animation: coin 10s linear 0.6970234724s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 6.5099889716%;
+}
+
+.coin_52:checked~.coin__52 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__53 {
+	-webkit-animation: coin 20s linear 4.1076379673s forwards;
+	animation: coin 20s linear 4.1076379673s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 48.6109044995%;
+}
+
+.coin_53:checked~.coin__53 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__54 {
+	-webkit-animation: coin 30s linear 0.5305220006s forwards;
+	animation: coin 30s linear 0.5305220006s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 44.7125140073%;
+}
+
+.coin_54:checked~.coin__54 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__55 {
+	-webkit-animation: coin 30s linear 4.6771309649s forwards;
+	animation: coin 30s linear 4.6771309649s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 69.7029954855%;
+}
+
+.coin_55:checked~.coin__55 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__56 {
+	-webkit-animation: coin 30s linear 3.0822075196s forwards;
+	animation: coin 30s linear 3.0822075196s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 31.1611611119%;
+}
+
+.coin_56:checked~.coin__56 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__57 {
+	-webkit-animation: coin 20s linear 1.1031228647s forwards;
+	animation: coin 20s linear 1.1031228647s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 30.1184805086%;
+}
+
+.coin_57:checked~.coin__57 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__58 {
+	-webkit-animation: coin 20s linear 3.2934720733s forwards;
+	animation: coin 20s linear 3.2934720733s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 25.2345959461%;
+}
+
+.coin_58:checked~.coin__58 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__59 {
+	-webkit-animation: coin 10s linear 3.3277135724s forwards;
+	animation: coin 10s linear 3.3277135724s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 56.4915156153%;
+}
+
+.coin_59:checked~.coin__59 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__60 {
+	-webkit-animation: coin 20s linear 1.4096998585s forwards;
+	animation: coin 20s linear 1.4096998585s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 42.0410836403%;
+}
+
+.coin_60:checked~.coin__60 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__61 {
+	-webkit-animation: coin 30s linear 3.1532975323s forwards;
+	animation: coin 30s linear 3.1532975323s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 68.5931098738%;
+}
+
+.coin_61:checked~.coin__61 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__62 {
+	-webkit-animation: coin 20s linear 1.7806234212s forwards;
+	animation: coin 20s linear 1.7806234212s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 65.3529836693%;
+}
+
+.coin_62:checked~.coin__62 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__63 {
+	-webkit-animation: coin 20s linear 1.9473757709s forwards;
+	animation: coin 20s linear 1.9473757709s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 57.3443157496%;
+}
+
+.coin_63:checked~.coin__63 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__64 {
+	-webkit-animation: coin 10s linear 4.1005117272s forwards;
+	animation: coin 10s linear 4.1005117272s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 28.2080885777%;
+}
+
+.coin_64:checked~.coin__64 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__65 {
+	-webkit-animation: coin 20s linear 0.7825945489s forwards;
+	animation: coin 20s linear 0.7825945489s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 18.4937442526%;
+}
+
+.coin_65:checked~.coin__65 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__66 {
+	-webkit-animation: coin 20s linear 0.1305343589s forwards;
+	animation: coin 20s linear 0.1305343589s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 36.2956456387%;
+}
+
+.coin_66:checked~.coin__66 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__67 {
+	-webkit-animation: coin 20s linear 4.5289211116s forwards;
+	animation: coin 20s linear 4.5289211116s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 5.2101559795%;
+}
+
+.coin_67:checked~.coin__67 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__68 {
+	-webkit-animation: coin 10s linear 2.2362245769s forwards;
+	animation: coin 10s linear 2.2362245769s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 59.044131508%;
+}
+
+.coin_68:checked~.coin__68 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__69 {
+	-webkit-animation: coin 30s linear 3.9242828239s forwards;
+	animation: coin 30s linear 3.9242828239s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 2.0227826611%;
+}
+
+.coin_69:checked~.coin__69 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__70 {
+	-webkit-animation: coin 30s linear 4.2703537049s forwards;
+	animation: coin 30s linear 4.2703537049s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 80.8536866129%;
+}
+
+.coin_70:checked~.coin__70 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__71 {
+	-webkit-animation: coin 10s linear 1.7233287967s forwards;
+	animation: coin 10s linear 1.7233287967s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 40.5034513%;
+}
+
+.coin_71:checked~.coin__71 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__72 {
+	-webkit-animation: coin 10s linear 4.9293929551s forwards;
+	animation: coin 10s linear 4.9293929551s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 42.1966735691%;
+}
+
+.coin_72:checked~.coin__72 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__73 {
+	-webkit-animation: coin 20s linear 0.0595306382s forwards;
+	animation: coin 20s linear 0.0595306382s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 73.5762691395%;
+}
+
+.coin_73:checked~.coin__73 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__74 {
+	-webkit-animation: coin 30s linear 2.5997466986s forwards;
+	animation: coin 30s linear 2.5997466986s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 9.5058423156%;
+}
+
+.coin_74:checked~.coin__74 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__75 {
+	-webkit-animation: coin 20s linear 2.1749500974s forwards;
+	animation: coin 20s linear 2.1749500974s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 14.2991058244%;
+}
+
+.coin_75:checked~.coin__75 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__76 {
+	-webkit-animation: coin 30s linear 4.4780452731s forwards;
+	animation: coin 30s linear 4.4780452731s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 85.9001671285%;
+}
+
+.coin_76:checked~.coin__76 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__77 {
+	-webkit-animation: coin 10s linear 2.7767011889s forwards;
+	animation: coin 10s linear 2.7767011889s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 70.9809155399%;
+}
+
+.coin_77:checked~.coin__77 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__78 {
+	-webkit-animation: coin 10s linear 2.8571714456s forwards;
+	animation: coin 10s linear 2.8571714456s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 29.9492059119%;
+}
+
+.coin_78:checked~.coin__78 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__79 {
+	-webkit-animation: coin 30s linear 0.4274041624s forwards;
+	animation: coin 30s linear 0.4274041624s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 69.1455006905%;
+}
+
+.coin_79:checked~.coin__79 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__80 {
+	-webkit-animation: coin 10s linear 3.8658365445s forwards;
+	animation: coin 10s linear 3.8658365445s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 91.3631874118%;
+}
+
+.coin_80:checked~.coin__80 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__81 {
+	-webkit-animation: coin 30s linear 3.743753727s forwards;
+	animation: coin 30s linear 3.743753727s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 69.6251514235%;
+}
+
+.coin_81:checked~.coin__81 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__82 {
+	-webkit-animation: coin 20s linear 2.1377965398s forwards;
+	animation: coin 20s linear 2.1377965398s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 26.1359178977%;
+}
+
+.coin_82:checked~.coin__82 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__83 {
+	-webkit-animation: coin 10s linear 1.4020860761s forwards;
+	animation: coin 10s linear 1.4020860761s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 73.0896506371%;
+}
+
+.coin_83:checked~.coin__83 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__84 {
+	-webkit-animation: coin 10s linear 2.2697353895s forwards;
+	animation: coin 10s linear 2.2697353895s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 51.7684820106%;
+}
+
+.coin_84:checked~.coin__84 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__85 {
+	-webkit-animation: coin 20s linear 2.2832036681s forwards;
+	animation: coin 20s linear 2.2832036681s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 82.310185325%;
+}
+
+.coin_85:checked~.coin__85 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__86 {
+	-webkit-animation: coin 20s linear 3.2938334941s forwards;
+	animation: coin 20s linear 3.2938334941s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 59.3418089623%;
+}
+
+.coin_86:checked~.coin__86 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__87 {
+	-webkit-animation: coin 30s linear 2.7502386395s forwards;
+	animation: coin 30s linear 2.7502386395s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 72.5855264554%;
+}
+
+.coin_87:checked~.coin__87 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__88 {
+	-webkit-animation: coin 30s linear 4.8804859961s forwards;
+	animation: coin 30s linear 4.8804859961s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 65.5187539368%;
+}
+
+.coin_88:checked~.coin__88 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__89 {
+	-webkit-animation: coin 20s linear 4.9489684984s forwards;
+	animation: coin 20s linear 4.9489684984s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 8.4312345417%;
+}
+
+.coin_89:checked~.coin__89 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__90 {
+	-webkit-animation: coin 20s linear 4.8358649125s forwards;
+	animation: coin 20s linear 4.8358649125s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 77.7215486167%;
+}
+
+.coin_90:checked~.coin__90 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__91 {
+	-webkit-animation: coin 30s linear 1.8661505149s forwards;
+	animation: coin 30s linear 1.8661505149s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 69.3158631514%;
+}
+
+.coin_91:checked~.coin__91 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__92 {
+	-webkit-animation: coin 10s linear 3.4128745488s forwards;
+	animation: coin 10s linear 3.4128745488s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 88.2120368617%;
+}
+
+.coin_92:checked~.coin__92 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__93 {
+	-webkit-animation: coin 10s linear 2.0119723925s forwards;
+	animation: coin 10s linear 2.0119723925s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 15.6857007971%;
+}
+
+.coin_93:checked~.coin__93 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__94 {
+	-webkit-animation: coin 30s linear 3.154566744s forwards;
+	animation: coin 30s linear 3.154566744s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 9.9689756822%;
+}
+
+.coin_94:checked~.coin__94 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__95 {
+	-webkit-animation: coin 30s linear 0.885581572s forwards;
+	animation: coin 30s linear 0.885581572s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 84.7011071289%;
+}
+
+.coin_95:checked~.coin__95 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__96 {
+	-webkit-animation: coin 20s linear 2.5407373137s forwards;
+	animation: coin 20s linear 2.5407373137s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 51.0744311474%;
+}
+
+.coin_96:checked~.coin__96 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__97 {
+	-webkit-animation: coin 30s linear 1.0183297338s forwards;
+	animation: coin 30s linear 1.0183297338s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 36.007319053%;
+}
+
+.coin_97:checked~.coin__97 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__98 {
+	-webkit-animation: coin 30s linear 3.3673804857s forwards;
+	animation: coin 30s linear 3.3673804857s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 86.6912319831%;
+}
+
+.coin_98:checked~.coin__98 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__99 {
+	-webkit-animation: coin 20s linear 0.041383391s forwards;
+	animation: coin 20s linear 0.041383391s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 91.0021764869%;
+}
+
+.coin_99:checked~.coin__99 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.coin__100 {
+	-webkit-animation: coin 30s linear 4.8529601772s forwards;
+	animation: coin 30s linear 4.8529601772s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	left: 41.1725765834%;
+}
+
+.coin_100:checked~.coin__100 {
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%) scale(0.01);
+	transform: translate(-50%, -50%) scale(0.01);
+	transition: all 0.1s linear;
+}
+
+.footer {
+	align-items: center;
+	background-color: #008000;
+	bottom: 0;
+	display: flex;
+	flex: 1 0 auto;
+	height: 40px;
+	left: 0;
+	padding: 0 10px;
+	position: absolute;
+	right: 0;
+	z-index: 10;
+}
+
+.score {
+	color: white;
+	font-family: 'Press Start 2P', cursive, sans-serif;
+	font-size: 1rem;
+}
+
+.score span:after {
+	content: counter(game);
+}
+
+.gameover {
+	align-items: center;
+	-webkit-animation: gameover 1s linear 40s forwards;
+	animation: gameover 1s linear 40s forwards;
+	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
+	justify-content: center;
+	-webkit-transform: rotateY(90deg);
+	transform: rotateY(90deg);
+	z-index: 40;
+}
+
+.gameover h1 {
+	color: white;
+	font-family: 'Press Start 2P', cursive, sans-serif;
+	font-size: 3rem;
+	margin-bottom: 25px;
+}
+
+.gameover .text {
+	color: white;
+	font-family: 'Press Start 2P', cursive, sans-serif;
+	font-weight: normal;
+	font-size: 1.5rem;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.gameover .text:last-of-type {
+	margin-bottom: 0;
+}
+
+.gameover .score {
+	color: #008000;
+	margin-bottom: 20px;
+}
+
+.gameover .author {
+	bottom: 10px;
+	font-size: 1rem;
+	position: absolute;
+	right: 20px;
+}
+
+.gameover a {
+	color: white;
+}
+
+
+/*--Levar, buttons styling and transitions--*/
+
+#choices {
+	margin: 50px auto;
+	width: 800px;
+}
+
+.buttons {
+	padding: 10px;
+	margin: 20px;
+	border: 3px outset white;
+	border-radius: 10px;
+	background-color: red;
+	text-decoration: none;
+}
+
+.buttons:hover {
+	background-color: blue;
+	transition-property: background-color;
+	transition-duration: 0.25s;
+}
+
+
+/*^^Levar, buttons styling and transitions^^*/
