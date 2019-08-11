@@ -1,1 +1,1 @@
-html/css/php online shop 
+html/css online shop with sending information to server
