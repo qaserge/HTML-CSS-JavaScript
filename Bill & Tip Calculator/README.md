@@ -1,3 +1,4 @@
+![alt text](https://github.com/qaserge/HTML-CSS-JavaScript/blob/master/Bill%20%26%20Tip%20Calculator/bill_and_tip.JPG)
 1. Retrieve values from the HTML elements
 2.Validate that the "Bill Total" and "Service Satisfaction" have been entered.
 If not show you should show an alert that says "Please fill out all the fields"
