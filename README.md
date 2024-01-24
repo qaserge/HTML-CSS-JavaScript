@@ -1,1 +1,1 @@
-Educational Code Archive for JavaScript Applications
+Educational Code Archive for JavaScript / HTML / CSS Applications
